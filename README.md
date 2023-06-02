@@ -7,6 +7,7 @@ Screenshot :
 
 Working Video:
 
-<video width="320" height="240">
-  <source src="[movie.mp4](https://github.com/NileshBarandwal/Solidity_BookMyHotel/blob/main/Working%20Video.mp4)">
-</video>
+
+
+https://github.com/NileshBarandwal/Solidity_BookMyHotel/assets/52256162/febdaf7a-324a-4a46-9c81-839afda69219
+
