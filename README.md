@@ -7,6 +7,6 @@ Screenshot :
 
 Working Video:
 
-[![Watch the video](https://github.com/NileshBarandwal/Solidity_BookMyHotel/blob/main/Working%20Video.mp4)
+[![Watch the video](https://github.com/NileshBarandwal/Solidity_BookMyHotel/assets/52256162/dc3b9b02-7713-4372-8943-0d8d3276da51)](https://github.com/NileshBarandwal/Solidity_BookMyHotel/blob/main/Working%20Video.mp4)
 
 
