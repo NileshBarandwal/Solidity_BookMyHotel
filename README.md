@@ -9,5 +9,5 @@ Working Video:
 
 
 
-https://github.com/NileshBarandwal/Solidity_BookMyHotel/assets/52256162/febdaf7a-324a-4a46-9c81-839afda69219
-
+[https://github.com/NileshBarandwal/Solidity_BookMyHotel/assets/52256162/febdaf7a-324a-4a46-9c81-839afda69219
+](https://drive.google.com/file/d/1CnHL54RJm8YhfmoUt3m4DwoYGLNAhurX/view?usp=sharing)
