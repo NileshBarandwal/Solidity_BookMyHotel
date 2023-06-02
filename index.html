@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href='./index.css' rel='stylesheet'>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css' rel='stylesheet'>
+  <style>
+    body {
+      background-image: linear-gradient(to right, #7B1FA2, #E91E63)
+    }
+
+    .section {
+      position: relative;
+      height: 100vh;
+    }
+
+    .section .section-center {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+
+    #booking {
+      font-family: 'Raleway', sans-serif;
+    }
+
+    .booking-form {
+      position: relative;
+      max-width: 642px;
+      width: 100%;
+      margin: auto;
+      padding: 40px;
+      overflow: hidden;
+      background-image: url('https://i.imgur.com/8z1tx3u.jpg');
+      background-size: cover;
+      border-radius: 5px;
+      z-index: 20;
+    }
+
+    .booking-form::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+
+    .booking-form .form-header {
+      text-align: center;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .booking-form .form-header h1 {
+      font-weight: 700;
+      text-transform: capitalize;
+      font-size: 42px;
+      margin: 0px;
+      color: #fff;
+    }
+
+    .booking-form .form-group {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .booking-form .form-control {
+      background-color: rgba(255, 255, 255, 0.2);
+      height: 60px;
+      padding: 0px 25px;
+      border: none;
+      border-radius: 40px;
+      color: #fff;
+      -webkit-box-shadow: 0px 0px 0px 2px transparent;
+      box-shadow: 0px 0px 0px 2px transparent;
+      -webkit-transition: 0.2s;
+      transition: 0.2s;
+    }
+
+    .booking-form .form-control::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .booking-form .form-control:-ms-input-placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .booking-form .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .booking-form .form-control:focus {
+      -webkit-box-shadow: 0px 0px 0px 2px #ff8846;
+      box-shadow: 0px 0px 0px 2px #ff8846;
+    }
+
+    .booking-form input[type="date"].form-control {
+      padding-top: 16px;
+    }
+
+    .booking-form input[type="date"].form-control:invalid {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .booking-form input[type="date"].form-control+.form-label {
+      opacity: 1;
+      top: 10px;
+    }
+
+    .booking-form select.form-control {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    .booking-form select.form-control:invalid {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .booking-form select.form-control+.select-arrow {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      width: 32px;
+      line-height: 32px;
+      height: 32px;
+      text-align: center;
+      pointer-events: none;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+    }
+
+    .booking-form select.form-control+.select-arrow:after {
+      content: '\279C';
+      display: block;
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
+
+    .booking-form select.form-control option {
+      color: #000;
+    }
+
+    .booking-form .form-label {
+      position: absolute;
+      top: -10px;
+      left: 25px;
+      opacity: 0;
+      color: #ff8846;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      height: 15px;
+      line-height: 15px;
+      -webkit-transition: 0.2s all;
+      transition: 0.2s all;
+    }
+
+    .booking-form .form-group.input-not-empty .form-control {
+      padding-top: 16px;
+    }
+
+    .booking-form .form-group.input-not-empty .form-label {
+      opacity: 1;
+      top: 10px;
+    }
+
+    #accountArea,
+    #contractArea,
+    #dataArea,
+    #bookhotelid,
+    #checkout,
+    #cancelbooking,
+    #bookingDetails,
+    #bookingStatus {
+      color: red;
+    }
+
+    .booking-form .submit-btn {
+      color: #fff;
+      background-color: #e35e0a;
+      font-weight: 700;
+      height: 60px;
+      padding: 10px 30px;
+      width: 100%;
+      border-radius: 40px;
+      border: none;
+      text-transform: uppercase;
+      font-size: 16px;
+      letter-spacing: 1.3px;
+      -webkit-transition: 0.2s all;
+      transition: 0.2s all;
+    }
+
+    .booking-form .submit-btn:hover,
+    .booking-form .submit-btn:focus {
+      opacity: 0.9;
+    }
+  </style>
+  <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
+  <script type='text/javascript' src='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js'></script>
+</head>
+
+<body>
+  <div id="booking" class="section">
+    <div class="section-center">
+      <div class="container">
+        <div class="row">
+          <div class="booking-form">
+            <div class="form-header">
+              <h1>Make your reservation</h1>
+            </div>
+            <div class="row">
+
+              <div class="col-md-12">
+                <p id="bookingStatus"></p>
+              </div>
+
+              <div class="col-md-12">
+                <button class="submit-btn" onclick="connectMetamask()">CONNECT TO METAMASK</button> <br>
+                <p id="accountArea">Connection Status: NOT CONNECTED to Metamask </p>
+              </div>
+
+              <div class="col-md-12">
+                <button class="submit-btn" onclick="connectContract()">CONNECT TO CONTRACT</button> <br>
+                <p id="contractArea">Connection Status: NOT CONNECTED to Smart Contract</p>
+
+                <button class="submit-btn" onclick="readWord()">GET Owner Address Details</button> <br>
+                <p id="dataArea">Data Status: NO Data from Smart Contract </p>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <button class="submit-btn" onclick="getBookingDetails()">Get Booking Details</button>
+                <p></p>
+              </div>
+              <div class="col-md-6">
+                <input id="bookingAddress" name="bookingAddress" class="form-control" type="text"
+                  placeholder="Booking Address Details">
+              </div>
+              <div class="col-md-12">
+                <p id="bookingDetails"></p>
+              </div>
+            </div>
+            <!--             <div class="form-group">
+              <input id="owner" class="form-control" type="text" placeholder="Know Owners Current Address Details">
+            </div> -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="form-btn">
+                    <button onclick="checkout()" class="submit-btn">CheckOut</button>
+                    <p id="checkout"></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="form-btn">
+                    <button onclick="cancelBooking()" class="submit-btn">Cancel Booking</button>
+                    <p id="cancelbooking"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--              <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input class="form-control" type="date" required>
+                  <span class="form-label">Check In</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input class="form-control" type="date" required>
+                  <span class="form-label">Check out</span>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <select class="form-control" required>
+                    <option value="" selected hidden>no of rooms</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                  <span class="select-arrow"></span>
+                  <span class="form-label">Rooms</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <select class="form-control" required>
+                    <option value="" selected hidden>no of adults</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
+                  <span class="select-arrow"></span>
+                  <span class="form-label">Adults</span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <select class="form-control" required>
+                    <option value="" selected hidden>no of children</option>
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                  </select>
+                  <span class="select-arrow"></span>
+                  <span class="form-label">Children</span>
+                </div>
+              </div>
+            </div> -->
+            <!--             <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input class="form-control" type="email" placeholder="Enter your Email">
+                  <span class="form-label">Email</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input class="form-control" type="tel" placeholder="Enter you Phone">
+                  <span class="form-label">Phone</span>
+                </div>
+              </div>
+            </div> -->
+            <div class="form-btn">
+              <button onclick="bookhotel()" id="bookhotel" class="submit-btn">Book Now</button>
+              <p id="bookhotelid">Hotel Status: NOT Booked </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    let account;
+    const connectMetamask = async () => {
+      if (window.ethereum !== "undefined") {
+        const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+        account = accounts[0];
+        document.getElementById("accountArea").innerHTML = `Account is: ${account}`;
+      }
+    }
+
+    const connectContract = async () => {
+      const ABI = [
+        {
+          "inputs": [],
+          "name": "bookHotel",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "cancelBooking",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "checkout",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amountRefunded",
+              "type": "uint256"
+            }
+          ],
+          "name": "BookingCancelled",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "CheckoutFailed",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "_address",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "Occupy",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "TransferFailed",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "name": "TransferSuccess",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "currentStatus",
+          "outputs": [
+            {
+              "internalType": "enum BookmyHotel.Statuses",
+              "name": "",
+              "type": "uint8"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "bookingAddress",
+              "type": "address"
+            }
+          ],
+          "name": "getBookingDetails",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address payable",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        }
+      ];
+      const Address = "0xA94d8a2C321a85A243b8C80d7A1176aD207436eB";
+      window.web3 = await new Web3(window.ethereum);
+      window.contract = await new window.web3.eth.Contract(ABI, Address);
+      document.getElementById("contractArea").innerHTML = "Connection Status: Success";
+      fetchBookingStatus();
+    }
+
+    const readWord = async () => {
+      const data = await window.contract.methods.owner().call();
+      document.getElementById("dataArea").innerHTML = `Current Owner is: ${data}`;
+    }
+
+    const bookhotel = async () => {
+      try {
+        const value = web3.utils.toWei("2", "ether"); // Specify the minimum amount of Ether to send
+        const data = await window.contract.methods.bookHotel().send({ from: account, value });
+        document.getElementById("bookhotelid").innerHTML = "Booking successful!";
+        fetchBookingStatus();
+        // Update UI or perform other actions to indicate the booking was successful
+      } catch (error) {
+        console.error("Error booking hotel:", error);
+        document.getElementById("bookhotelid").innerHTML = "Booking failed. Please try again.";
+        // Update UI or perform other actions to indicate the booking failed
+      }
+    };
+
+    /* working */
+    const checkout = async () => {
+      try {
+        const data = await window.contract.methods.checkout().send({ from: account });
+        document.getElementById("checkout").innerHTML = "CheckOut successful!";
+        fetchBookingStatus();
+        // Update UI or perform other actions to indicate the booking was successful
+      } catch (error) {
+        console.error("Error checking out hotel:", error);
+        let errorMessage = "Unknown error occurred";
+        if (error.message) {
+          const match = error.message.match(/revert ([^,]+)"/);
+          if (match) {
+            errorMessage = match[1];
+          }
+        }
+        document.getElementById("checkout").innerHTML = `CheckOut failed: ${errorMessage}`;
+        // Update UI or perform other actions to indicate the booking failed
+      }
+    };
+
+
+    const cancelBooking = async () => {
+      try {
+        const data = await window.contract.methods.cancelBooking().send({ from: account, gas: 3000000 });
+        document.getElementById("cancelbooking").innerHTML = "Cancellation successful!";
+        // Update UI or perform other actions to indicate the cancellation was successful
+      } catch (error) {
+        console.error("Error canceling booking:", error);
+        console.log(error.message); // Log the specific error message for debugging
+        document.getElementById("cancelbooking").innerHTML = "Cancellation failed. Please try again.";
+        // Update UI or perform other actions to indicate the cancellation failed
+      }
+    };
+
+    const getBookingDetails = async (bookingAddress) => {
+      try {
+        const bookingAddress = document.getElementById("bookingAddress").value;
+        const data = await contract.methods.getBookingDetails(bookingAddress).call();
+        const owner = data[0];
+        const checkedOut = data[1];
+        const cancelled = data[2];
+        const amountPaid = data[3];
+        // Format the booking details as a string
+        const bookingDetails = `Owner: ${owner}\n <br> Checked Out: ${checkedOut}\n<br>Cancelled: ${cancelled}\n<br> Amount Paid: ${amountPaid}`;
+
+        // Display the booking details in the textarea
+        document.getElementById("bookingDetails").innerHTML = bookingDetails;
+      } catch (error) {
+        console.error("Error retrieving booking details:", error);
+        document.getElementById("bookingDetails").innerHTML = "Please Provide address or Make sure your connected.";
+        // Handle error appropriately
+      }
+    }
+
+    // Get Status
+    // Function to fetch and display the current booking status
+    const fetchBookingStatus = async () => {
+      try {
+        // Call the currentStatus function of the contract to fetch the current status
+        const status = await window.contract.methods.currentStatus().call();
+
+         // Convert the boolean status to a meaningful string
+         const bookingStatus = status === "1" ? "Empty" : "Occupied";
+
+        // Display the fetched status on the webpage
+        document.getElementById("bookingStatus").innerHTML = `Current Status: ${bookingStatus}`;
+      } catch (error) {
+        console.error("Error fetching booking status:", error);
+        document.getElementById("bookingStatus").innerHTML = "Error fetching booking status. Please try again.";
+        // Handle the error appropriately
+      }
+    };
+
+  </script>
+</body>
+
+</html>
