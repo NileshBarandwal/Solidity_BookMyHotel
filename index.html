@@ -564,7 +564,7 @@
 
     const bookhotel = async () => {
       try {
-        const value = web3.utils.toWei("2", "ether"); // Specify the minimum amount of Ether to send
+        const value = web3.utils.toWei("0.015", "ether"); // Specify the minimum amount of Ether to send
         const data = await window.contract.methods.bookHotel().send({ from: account, value });
         document.getElementById("bookhotelid").innerHTML = "Booking successful!";
         fetchBookingStatus();
